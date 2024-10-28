@@ -1,0 +1,865 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище NSRequests" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="EquipmentId" />
+          </Key>
+          <Property Name="EquipmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentName" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriorityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Problem">
+          <Key>
+            <PropertyRef Name="ProblemId" />
+          </Key>
+          <Property Name="ProblemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProblemName" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestDate" Type="date" Nullable="false" />
+          <Property Name="RequestEquipmentId" Type="int" Nullable="false" />
+          <Property Name="RequestProblemId" Type="int" Nullable="false" />
+          <Property Name="RequestUserId" Type="int" Nullable="false" />
+          <Property Name="RequestDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="RequestStatusId" Type="int" Nullable="false" />
+          <Property Name="RequestMasterId" Type="int" Nullable="false" />
+          <Property Name="RequestTime" Type="int" Nullable="false" />
+          <Property Name="RequestPriorityId" Type="int" Nullable="false" />
+          <Property Name="RequestStageId" Type="int" Nullable="false" />
+          <Property Name="RequestComment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stage">
+          <Key>
+            <PropertyRef Name="StageId" />
+          </Key>
+          <Property Name="StageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="UserLogin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserRoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "DBMatisikRequests413.dbo.View_All_Requests" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="View_All_Requests">
+          <Key>
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="EquipmentName" />
+            <PropertyRef Name="ProblemName" />
+            <PropertyRef Name="Client" />
+            <PropertyRef Name="Master" />
+            <PropertyRef Name="RequestDescription" />
+            <PropertyRef Name="StatusName" />
+            <PropertyRef Name="RequestTime" />
+            <PropertyRef Name="PriorityName" />
+            <PropertyRef Name="StageName" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="RequestDate" Type="date" Nullable="false" />
+          <Property Name="EquipmentName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProblemName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Client" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Master" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="RequestDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RequestTime" Type="int" Nullable="false" />
+          <Property Name="PriorityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestComment" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "DBMatisikRequests413.dbo.ViewRequest" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="ViewRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="EquipmentName" />
+            <PropertyRef Name="ProblemName" />
+            <PropertyRef Name="Client" />
+            <PropertyRef Name="RequestDescription" />
+            <PropertyRef Name="StatusName" />
+            <PropertyRef Name="RequestMasterId" />
+            <PropertyRef Name="RequestTime" />
+            <PropertyRef Name="PriorityName" />
+            <PropertyRef Name="StageName" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="RequestDate" Type="date" Nullable="false" />
+          <Property Name="EquipmentName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProblemName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Client" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="RequestDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RequestMasterId" Type="int" Nullable="false" />
+          <Property Name="RequestTime" Type="int" Nullable="false" />
+          <Property Name="PriorityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestComment" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Request_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="EquipmentId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestEquipmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Master">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Priority">
+          <End Role="Priority" Type="Self.Priority" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestPriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Problem">
+          <End Role="Problem" Type="Self.Problem" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Problem">
+              <PropertyRef Name="ProblemId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Stage">
+          <End Role="Stage" Type="Self.Stage" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stage">
+              <PropertyRef Name="StageId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role1">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetInfoRequestFromMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMaster" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetRequestsMasterName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MasterName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetRequestsMasterShortName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MasterName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище NSRequestsContainer">
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priority" EntityType="Self.Priority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Problem" EntityType="Self.Problem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stage" EntityType="Self.Stage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_All_Requests" EntityType="Self.View_All_Requests" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_All_Requests].[RequestId] AS [RequestId], 
+    [View_All_Requests].[RequestDate] AS [RequestDate], 
+    [View_All_Requests].[EquipmentName] AS [EquipmentName], 
+    [View_All_Requests].[ProblemName] AS [ProblemName], 
+    [View_All_Requests].[Client] AS [Client], 
+    [View_All_Requests].[Master] AS [Master], 
+    [View_All_Requests].[RequestDescription] AS [RequestDescription], 
+    [View_All_Requests].[StatusName] AS [StatusName], 
+    [View_All_Requests].[RequestTime] AS [RequestTime], 
+    [View_All_Requests].[PriorityName] AS [PriorityName], 
+    [View_All_Requests].[StageName] AS [StageName], 
+    [View_All_Requests].[RequestComment] AS [RequestComment]
+    FROM [dbo].[View_All_Requests] AS [View_All_Requests]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewRequest" EntityType="Self.ViewRequest" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewRequest].[RequestId] AS [RequestId], 
+    [ViewRequest].[RequestDate] AS [RequestDate], 
+    [ViewRequest].[EquipmentName] AS [EquipmentName], 
+    [ViewRequest].[ProblemName] AS [ProblemName], 
+    [ViewRequest].[Client] AS [Client], 
+    [ViewRequest].[RequestDescription] AS [RequestDescription], 
+    [ViewRequest].[StatusName] AS [StatusName], 
+    [ViewRequest].[RequestMasterId] AS [RequestMasterId], 
+    [ViewRequest].[RequestTime] AS [RequestTime], 
+    [ViewRequest].[PriorityName] AS [PriorityName], 
+    [ViewRequest].[StageName] AS [StageName], 
+    [ViewRequest].[RequestComment] AS [RequestComment]
+    FROM [dbo].[ViewRequest] AS [ViewRequest]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Request_Equipment" Association="Self.FK_Request_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Master" Association="Self.FK_Request_Master">
+            <End Role="User" EntitySet="User" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Priority" Association="Self.FK_Request_Priority">
+            <End Role="Priority" EntitySet="Priority" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Problem" Association="Self.FK_Request_Problem">
+            <End Role="Problem" EntitySet="Problem" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Stage" Association="Self.FK_Request_Stage">
+            <End Role="Stage" EntitySet="Stage" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Status" Association="Self.FK_Request_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role1" Association="Self.FK_User_Role1">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NSRequests" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="EquipmentId" />
+          </Key>
+          <Property Name="EquipmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Equipment" FromRole="Equipment" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Priority" FromRole="Priority" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Problem">
+          <Key>
+            <PropertyRef Name="ProblemId" />
+          </Key>
+          <Property Name="ProblemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProblemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Problem" FromRole="Problem" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RequestEquipmentId" Type="Int32" Nullable="false" />
+          <Property Name="RequestProblemId" Type="Int32" Nullable="false" />
+          <Property Name="RequestUserId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestStatusId" Type="Int32" Nullable="false" />
+          <Property Name="RequestMasterId" Type="Int32" Nullable="false" />
+          <Property Name="RequestTime" Type="Int32" Nullable="false" />
+          <Property Name="RequestPriorityId" Type="Int32" Nullable="false" />
+          <Property Name="RequestStageId" Type="Int32" Nullable="false" />
+          <Property Name="RequestComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_Request_Equipment" FromRole="Request" ToRole="Equipment" />
+          <NavigationProperty Name="Priority" Relationship="Self.FK_Request_Priority" FromRole="Request" ToRole="Priority" />
+          <NavigationProperty Name="Problem" Relationship="Self.FK_Request_Problem" FromRole="Request" ToRole="Problem" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Request_Master" FromRole="Request" ToRole="User" />
+          <NavigationProperty Name="Stage" Relationship="Self.FK_Request_Stage" FromRole="Request" ToRole="Stage" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Request_Status" FromRole="Request" ToRole="Status" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Request_User" FromRole="Request" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role1" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Stage">
+          <Key>
+            <PropertyRef Name="StageId" />
+          </Key>
+          <Property Name="StageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Stage" FromRole="Stage" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Status" FromRole="Status" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Master" FromRole="User" ToRole="Request" />
+          <NavigationProperty Name="Request1" Relationship="Self.FK_Request_User" FromRole="User" ToRole="Request" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role1" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="View_All_Requests">
+          <Key>
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="EquipmentName" />
+            <PropertyRef Name="ProblemName" />
+            <PropertyRef Name="Client" />
+            <PropertyRef Name="Master" />
+            <PropertyRef Name="RequestDescription" />
+            <PropertyRef Name="StatusName" />
+            <PropertyRef Name="RequestTime" />
+            <PropertyRef Name="PriorityName" />
+            <PropertyRef Name="StageName" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EquipmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProblemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Client" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Master" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestTime" Type="Int32" Nullable="false" />
+          <Property Name="PriorityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="EquipmentName" />
+            <PropertyRef Name="ProblemName" />
+            <PropertyRef Name="Client" />
+            <PropertyRef Name="RequestDescription" />
+            <PropertyRef Name="StatusName" />
+            <PropertyRef Name="RequestMasterId" />
+            <PropertyRef Name="RequestTime" />
+            <PropertyRef Name="PriorityName" />
+            <PropertyRef Name="StageName" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EquipmentName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProblemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Client" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestMasterId" Type="Int32" Nullable="false" />
+          <Property Name="RequestTime" Type="Int32" Nullable="false" />
+          <Property Name="PriorityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Request_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="EquipmentId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestEquipmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Priority">
+          <End Role="Priority" Type="Self.Priority" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestPriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Problem">
+          <End Role="Problem" Type="Self.Problem" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Problem">
+              <PropertyRef Name="ProblemId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Master">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Stage">
+          <End Role="Stage" Type="Self.Stage" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stage">
+              <PropertyRef Name="StageId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role1">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRequests" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" />
+          <EntitySet Name="Priority" EntityType="Self.Priority" />
+          <EntitySet Name="Problem" EntityType="Self.Problem" />
+          <EntitySet Name="Request" EntityType="Self.Request" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Stage" EntityType="Self.Stage" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="View_All_Requests" EntityType="Self.View_All_Requests" />
+          <EntitySet Name="ViewRequest" EntityType="Self.ViewRequest" />
+          <AssociationSet Name="FK_Request_Equipment" Association="Self.FK_Request_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Priority" Association="Self.FK_Request_Priority">
+            <End Role="Priority" EntitySet="Priority" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Problem" Association="Self.FK_Request_Problem">
+            <End Role="Problem" EntitySet="Problem" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Master" Association="Self.FK_Request_Master">
+            <End Role="User" EntitySet="User" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Stage" Association="Self.FK_Request_Stage">
+            <End Role="Stage" EntitySet="Stage" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Status" Association="Self.FK_Request_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role1" Association="Self.FK_User_Role1">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <FunctionImport Name="GetInfoRequestFromMaster" ReturnType="Collection(NSRequests.GetInfoRequestFromMaster_Result)">
+            <Parameter Name="IdMaster" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetRequestsMasterName" ReturnType="Collection(NSRequests.GetRequestsMasterName_Result)">
+            <Parameter Name="MasterName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetRequestsMasterShortName" ReturnType="Collection(NSRequests.GetRequestsMasterShortName_Result)">
+            <Parameter Name="MasterName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetInfoRequestFromMaster_Result">
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <Property Type="DateTime" Name="RequestDate" Nullable="false" />
+          <Property Type="Int32" Name="RequestEquipmentId" Nullable="false" />
+          <Property Type="Int32" Name="RequestProblemId" Nullable="false" />
+          <Property Type="Int32" Name="RequestUserId" Nullable="false" />
+          <Property Type="String" Name="RequestDescription" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="RequestStatusId" Nullable="false" />
+          <Property Type="Int32" Name="RequestMasterId" Nullable="false" />
+          <Property Type="Int32" Name="RequestTime" Nullable="false" />
+          <Property Type="Int32" Name="RequestPriorityId" Nullable="false" />
+          <Property Type="Int32" Name="RequestStageId" Nullable="false" />
+          <Property Type="String" Name="RequestComment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetRequestsMasterName_Result">
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <Property Type="DateTime" Name="RequestDate" Nullable="false" />
+          <Property Type="Int32" Name="RequestEquipmentId" Nullable="false" />
+          <Property Type="Int32" Name="RequestProblemId" Nullable="false" />
+          <Property Type="Int32" Name="RequestUserId" Nullable="false" />
+          <Property Type="String" Name="RequestDescription" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="RequestStatusId" Nullable="false" />
+          <Property Type="Int32" Name="RequestMasterId" Nullable="false" />
+          <Property Type="Int32" Name="RequestTime" Nullable="false" />
+          <Property Type="Int32" Name="RequestPriorityId" Nullable="false" />
+          <Property Type="Int32" Name="RequestStageId" Nullable="false" />
+          <Property Type="String" Name="RequestComment" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserFullName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="UserLogin" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="UserRoleId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetRequestsMasterShortName_Result">
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <Property Type="DateTime" Name="RequestDate" Nullable="false" />
+          <Property Type="Int32" Name="RequestEquipmentId" Nullable="false" />
+          <Property Type="Int32" Name="RequestProblemId" Nullable="false" />
+          <Property Type="Int32" Name="RequestUserId" Nullable="false" />
+          <Property Type="String" Name="RequestDescription" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="RequestStatusId" Nullable="false" />
+          <Property Type="Int32" Name="RequestMasterId" Nullable="false" />
+          <Property Type="Int32" Name="RequestTime" Nullable="false" />
+          <Property Type="Int32" Name="RequestPriorityId" Nullable="false" />
+          <Property Type="Int32" Name="RequestStageId" Nullable="false" />
+          <Property Type="String" Name="RequestComment" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserFullName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="UserLogin" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="UserRoleId" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище NSRequestsContainer" CdmEntityContainer="DBRequests">
+          <EntitySetMapping Name="Equipment">
+            <EntityTypeMapping TypeName="NSRequests.Equipment">
+              <MappingFragment StoreEntitySet="Equipment">
+                <ScalarProperty Name="EquipmentId" ColumnName="EquipmentId" />
+                <ScalarProperty Name="EquipmentName" ColumnName="EquipmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priority">
+            <EntityTypeMapping TypeName="NSRequests.Priority">
+              <MappingFragment StoreEntitySet="Priority">
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Problem">
+            <EntityTypeMapping TypeName="NSRequests.Problem">
+              <MappingFragment StoreEntitySet="Problem">
+                <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
+                <ScalarProperty Name="ProblemName" ColumnName="ProblemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="NSRequests.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestEquipmentId" ColumnName="RequestEquipmentId" />
+                <ScalarProperty Name="RequestProblemId" ColumnName="RequestProblemId" />
+                <ScalarProperty Name="RequestUserId" ColumnName="RequestUserId" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+                <ScalarProperty Name="RequestMasterId" ColumnName="RequestMasterId" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="RequestPriorityId" ColumnName="RequestPriorityId" />
+                <ScalarProperty Name="RequestStageId" ColumnName="RequestStageId" />
+                <ScalarProperty Name="RequestComment" ColumnName="RequestComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="NSRequests.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stage">
+            <EntityTypeMapping TypeName="NSRequests.Stage">
+              <MappingFragment StoreEntitySet="Stage">
+                <ScalarProperty Name="StageId" ColumnName="StageId" />
+                <ScalarProperty Name="StageName" ColumnName="StageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="NSRequests.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="NSRequests.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_All_Requests">
+            <EntityTypeMapping TypeName="NSRequests.View_All_Requests">
+              <MappingFragment StoreEntitySet="View_All_Requests">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="EquipmentName" ColumnName="EquipmentName" />
+                <ScalarProperty Name="ProblemName" ColumnName="ProblemName" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="Master" ColumnName="Master" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+                <ScalarProperty Name="StageName" ColumnName="StageName" />
+                <ScalarProperty Name="RequestComment" ColumnName="RequestComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewRequest">
+            <EntityTypeMapping TypeName="NSRequests.ViewRequest">
+              <MappingFragment StoreEntitySet="ViewRequest">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="EquipmentName" ColumnName="EquipmentName" />
+                <ScalarProperty Name="ProblemName" ColumnName="ProblemName" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="RequestMasterId" ColumnName="RequestMasterId" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+                <ScalarProperty Name="StageName" ColumnName="StageName" />
+                <ScalarProperty Name="RequestComment" ColumnName="RequestComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetInfoRequestFromMaster" FunctionName="Хранилище NSRequests.GetInfoRequestFromMaster">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NSRequests.GetInfoRequestFromMaster_Result">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestEquipmentId" ColumnName="RequestEquipmentId" />
+                <ScalarProperty Name="RequestProblemId" ColumnName="RequestProblemId" />
+                <ScalarProperty Name="RequestUserId" ColumnName="RequestUserId" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+                <ScalarProperty Name="RequestMasterId" ColumnName="RequestMasterId" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="RequestPriorityId" ColumnName="RequestPriorityId" />
+                <ScalarProperty Name="RequestStageId" ColumnName="RequestStageId" />
+                <ScalarProperty Name="RequestComment" ColumnName="RequestComment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetRequestsMasterName" FunctionName="Хранилище NSRequests.GetRequestsMasterName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NSRequests.GetRequestsMasterName_Result">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestEquipmentId" ColumnName="RequestEquipmentId" />
+                <ScalarProperty Name="RequestProblemId" ColumnName="RequestProblemId" />
+                <ScalarProperty Name="RequestUserId" ColumnName="RequestUserId" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+                <ScalarProperty Name="RequestMasterId" ColumnName="RequestMasterId" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="RequestPriorityId" ColumnName="RequestPriorityId" />
+                <ScalarProperty Name="RequestStageId" ColumnName="RequestStageId" />
+                <ScalarProperty Name="RequestComment" ColumnName="RequestComment" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetRequestsMasterShortName" FunctionName="Хранилище NSRequests.GetRequestsMasterShortName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NSRequests.GetRequestsMasterShortName_Result">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestEquipmentId" ColumnName="RequestEquipmentId" />
+                <ScalarProperty Name="RequestProblemId" ColumnName="RequestProblemId" />
+                <ScalarProperty Name="RequestUserId" ColumnName="RequestUserId" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+                <ScalarProperty Name="RequestMasterId" ColumnName="RequestMasterId" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="RequestPriorityId" ColumnName="RequestPriorityId" />
+                <ScalarProperty Name="RequestStageId" ColumnName="RequestStageId" />
+                <ScalarProperty Name="RequestComment" ColumnName="RequestComment" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
